@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;500;600;700&display=swap');
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+    position: relative;
+}
+
+body {
+    background-color: #141414;
+    font-family: 'Bai Jamjuree', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+/* Prevent focus outline from causing layout shifts */
+*:focus {
+    outline: none;
+}
+
+.mainContainer {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}

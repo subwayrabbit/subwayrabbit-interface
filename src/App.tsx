@@ -1,35 +1,65 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { makeStyles } from '@fluentui/react-components';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { darkTheme } from './theme';
+import { createDOMRenderer, RendererProvider, FluentProvider } from '@fluentui/react-components';
+import Navbar from '@/components/Navbar/Navbar';
+
+// Import pages
+import Trade from '@/pages/Trade/Trade';
+import Earn from '@/pages/Earn/Earn';
+import Bridge from '@/pages/Bridge/Bridge';
+
+// Create a DOM renderer for Fluent UI
+const renderer = createDOMRenderer();
+
+const useStyles = makeStyles({
+  root: {
+    height: '100%',
+    width: '100%',
+    padding: '0px',
+    margin: '0px',
+  },
+  fluentProvider: {
+    height: '100%',
+    width: '100%',
+    padding: '0px',
+    margin: '0px',
+  },
+  mainContainer: {
+    height: '100%',
+    width: '100%',
+    padding: 0,
+    margin: 0,
+  }
+});
 
 function App() {
-  const [count, setCount] = useState(0)
+  const styles = useStyles();
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className={styles.root}>
+      <RendererProvider renderer={renderer}>
+        <FluentProvider theme={darkTheme} className={styles.fluentProvider}>
+          <BrowserRouter>
+            <Navbar />
+            <main className={styles.mainContainer}>
+              <Routes>
+                <Route path="/" element={
+                  <div>
+                    <h1>Welcome to Subwayrabbit</h1>
+                    {/* Add your home page content here */}
+                  </div>
+                } />
+                <Route path="/trade" element={<Trade />} />
+                <Route path="/earn" element={<Earn />} />
+                <Route path="/bridge" element={<Bridge />} />
+              </Routes>
+            </main>
+          </BrowserRouter>
+        </FluentProvider>
+      </RendererProvider>
+    </div>
+  );
 }
 
-export default App
+export default App;
