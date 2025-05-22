@@ -4,8 +4,10 @@ import {
     tokens,
     Text,
 } from '@fluentui/react-components';
+import { useState } from 'react';
 import { TokenInput } from './TokenInput';
-import { TokenSelectButton } from './TokenSelectButton';
+import { TokenSelectButton } from './TokenSelectButton/TokenSelectButton';
+import { TokenSelectSidebar } from './TokenSelectSidebar/TokenSelectSidebar';
 
 interface TokenSwapAreaProps {
     type: "sell" | "buy";
@@ -15,6 +17,7 @@ interface TokenSwapAreaProps {
     tokenWalletAmount: string;
     fiatValue: string;
     onTokenAmountChange: (value: string) => void;
+    onTokenChange?: (token: { name: string; image: string }) => void;
 }
 
 const useStyles = makeStyles({
@@ -76,8 +79,17 @@ export function TokenSwapArea({
     tokenAmount,
     fiatValue,
     tokenWalletAmount,
-    onTokenAmountChange, }: TokenSwapAreaProps) {
+    onTokenAmountChange,
+    onTokenChange,
+}: TokenSwapAreaProps) {
     const styles = useStyles();
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+    const handleTokenSelect = (token: { name: string; image: string }) => {
+        if (onTokenChange) {
+            onTokenChange(token);
+        }
+    };
 
     return (
         <div className={styles.root}>
@@ -87,8 +99,12 @@ export function TokenSwapArea({
                     tokenAmount={tokenAmount}
                     onTokenAmountChange={onTokenAmountChange}
                 />
-                <div className={styles.tokenSelectContainer} >
-                <TokenSelectButton tokenName={tokenName} tokenImage={tokenImage} />
+                <div className={styles.tokenSelectContainer}>
+                    <TokenSelectButton 
+                        tokenName={tokenName} 
+                        tokenImage={tokenImage}
+                        onClick={() => setIsSidebarOpen(true)}
+                    />
                 </div>
             </div>
 
@@ -100,7 +116,12 @@ export function TokenSwapArea({
                     </Text>
                 </div>
             </div>
-        </div>
-    )
 
+            <TokenSelectSidebar
+                isOpen={isSidebarOpen}
+                onClose={() => setIsSidebarOpen(false)}
+                onSelectToken={handleTokenSelect}
+            />
+        </div>
+    );
 }

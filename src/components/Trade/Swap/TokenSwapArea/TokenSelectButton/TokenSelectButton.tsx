@@ -8,6 +8,7 @@ import { ChevronDown } from 'lucide-react';
 interface TokenSelectButtonProps {
     tokenName: string;
     tokenImage: string;
+    onClick?: () => void;
 }
 
 const useStyles = makeStyles({
@@ -59,7 +60,7 @@ const useStyles = makeStyles({
     },
 });
 
-export function TokenSelectButton({ tokenName, tokenImage }: TokenSelectButtonProps) {
+export function TokenSelectButton({ tokenName, tokenImage, onClick}: TokenSelectButtonProps) {
     const styles = useStyles();
 
     return (
@@ -68,6 +69,7 @@ export function TokenSelectButton({ tokenName, tokenImage }: TokenSelectButtonPr
                 className={styles.tokeButton}
                 icon={<ChevronDown size={32} />}
                 appearance="transparent"
+                onClick={onClick}
             >
                 {tokenName}
             </CompoundButton>
