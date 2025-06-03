@@ -15,19 +15,40 @@ interface TokenListItemProps {
 }
 
 const useStyles = makeStyles({
-    container: {
+    root: {
         display: 'flex',
         width: '100%',
-        height: '68px',
+        height: '88px',
         backgroundColor: 'transparent',
         flexDirection: "row",
+        justifyContent: 'center',
         ...shorthands.gap('12px'),
+        paddingRight: '24px',
+        paddingLeft: '24px',
+
+        transitionProperty: 'background-color, transform',
+        transitionDuration: '300ms',
+        transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+
+        ':hover': {
+            backgroundColor: tokens.colorNeutralForeground4,
+        },
+
     },
-    infoContainer: {
-        width: '100%',
+
+    imageContainer: {
+        display: 'flex',
+        height: '100%',
         flexDirection: "row",
         alignItems: 'center',
-        justifyContent: 'space-between',
+    },
+
+    infoContainer: {
+        display: 'flex',
+        height: '100%',
+        width: '100%',
+        flexDirection: "column",
+        justifyContent: 'center',
     },
 
     pairNameFiatContainer: {
@@ -52,12 +73,6 @@ const useStyles = makeStyles({
         display: 'flex',
         justifyContent: 'flex-end',
         marginLeft: 'auto',
-    },
-
-    imageContainer: {
-        height: '100%',
-        marginTop: '6px',
-        marginBottom: '6px',
     },
 
     tokenName: {
@@ -86,8 +101,7 @@ export function TokenListItem({ tokenName,
     const styles = useStyles();
 
     return (
-        <div className={styles.container}>
-
+        <div className={styles.root}>
             <div className={styles.imageContainer}>
                 <img
                     src={tokenImage}
@@ -113,6 +127,8 @@ export function TokenListItem({ tokenName,
                     </div>
                 </div>
             </div>
+
+
 
         </div>
     )

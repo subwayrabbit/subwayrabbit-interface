@@ -37,7 +37,7 @@ const useStyles = makeStyles({
         border: 'none',
 
         // Transition definition
-        transitionProperty: 'color, transform', // Specify which properties to animate
+        transitionProperty: 'color, transform',
         transitionDuration: '200ms',
         transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
 

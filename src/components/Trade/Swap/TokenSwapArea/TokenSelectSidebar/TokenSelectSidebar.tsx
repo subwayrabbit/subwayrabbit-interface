@@ -2,11 +2,14 @@ import {
     makeStyles,
     tokens,
     Text,
-    Button,
+    CompoundButton,
 } from '@fluentui/react-components';
 import ethToken from '@/assets/png/tokens/eth.png';
 import usdcToken from '@/assets/png/tokens/usdc.png';
 import { TokenListItem } from './TokenListItem';
+import { X } from 'lucide-react';
+import { TokenSearch } from './TokenSearch';
+import { Token } from '@/components/Token/TokenType';
 
 const useStyles = makeStyles({
     root: {
@@ -17,20 +20,28 @@ const useStyles = makeStyles({
         height: '100vh',
         backgroundColor: tokens.colorNeutralBackground2,
         boxShadow: tokens.shadow16,
-        padding: '24px',
         display: 'flex',
         flexDirection: 'column',
-        gap: '24px',
         zIndex: 1000,
+    },
+    controlContainer: {
+        paddingLeft: '24px',
+        paddingRight: '24px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
     },
     header: {
         display: 'flex',
-        justifyContent: 'space-between',
+        width: '100%',
+        height: '72px',
+        justifyContent: 'flex-end',
         alignItems: 'center',
+        flexShrink: 0,
     },
     title: {
-        fontSize: '24px',
-        fontWeight: tokens.fontWeightSemibold,
+        fontSize: '25px',
+        fontWeight: tokens.fontWeightRegular,
     },
     closeButton: {
         backgroundColor: 'transparent',
@@ -43,8 +54,11 @@ const useStyles = makeStyles({
     },
     tokenList: {
         display: 'flex',
+        flex: 1,
+        width: '100%',
+        height: '100%',
         flexDirection: 'column',
-        gap: '16px',
+        overflowY: 'auto',
     },
     tokenItem: {
         display: 'flex',
@@ -56,26 +70,18 @@ const useStyles = makeStyles({
             backgroundColor: tokens.colorNeutralBackground2,
         },
     },
-    tokenImage: {
-        width: '32px',
-        height: '32px',
-    },
-    tokenName: {
-        fontSize: '18px',
-        fontWeight: tokens.fontWeightRegular,
-    },
 });
 
 interface TokenSelectSidebarProps {
     isOpen: boolean;
     onClose: () => void;
-    onSelectToken: (token: { name: string; image: string }) => void;
+    onSelectToken: (token: Token) => void;
 }
 
 // mock data
-const tokensList = [
-    { name: 'Ethereum', label: 'ETH', image: ethToken, fiat: '$52.95', amount: '0.02931' },
-    { name: 'USDC Coin', label: 'USDC', image: usdcToken, fiat: '$16.15', amount: '16.152' },
+const tokensList: Token[] = [
+    { name: 'Ethereum', label: 'ETH', image: ethToken, fiat: '$52.95', amount: '0.02931', address: '0x0000000000000000000000000000000000000000' },
+    { name: 'USDC Coin', label: 'USDC', image: usdcToken, fiat: '$16.15', amount: '16.152', address: '0x0000000000000000000000000000000000000001' },
 ];
 
 export function TokenSelectSidebar({ isOpen, onClose, onSelectToken }: TokenSelectSidebarProps) {
@@ -86,46 +92,37 @@ export function TokenSelectSidebar({ isOpen, onClose, onSelectToken }: TokenSele
     return (
         <div className={styles.root}>
             <div className={styles.header}>
-                <Text className={styles.title}>Select Token</Text>
-                <Button
+                <CompoundButton
                     className={styles.closeButton}
                     onClick={onClose}
                     appearance="transparent"
-                >
-                    ✕
-                </Button>
+                    icon={<X size={32} />}
+                />
             </div>
+
+            <div className={styles.controlContainer}>
+                <Text className={styles.title}>All networks</Text>
+                <TokenSearch />
+            </div>
+
             <div className={styles.tokenList}>
                 {tokensList.map((token) => (
 
-                <div className={styles.tokenItem}> 
-                    <TokenListItem
-                        tokenName={token.name}
-                        tokenLabel={token.label}
-                        tokenImage={token.image}
-                        tokenAmount={token.amount}
-                        fiatValue={token.fiat}
-                        tokenAddress=''
-                    />
-                </div>
-   
+                    <div className={styles.tokenItem}
+                        onClick={() => {
+                            onSelectToken(token);
+                            onClose();
+                        }}>
 
-
-                    // <div
-                    //     key={token.name}
-                    //     className={styles.tokenItem}
-                    //     onClick={() => {
-                    //         onSelectToken(token);
-                    //         onClose();
-                    //     }}
-                    // >
-                    //     <img
-                    //         src={token.image}
-                    //         alt={token.name}
-                    //         className={styles.tokenImage}
-                    //     />
-                    //     <Text className={styles.tokenName}>{token.name}</Text>
-                    // </div>
+                        <TokenListItem
+                            tokenName={token.name}
+                            tokenLabel={token.label}
+                            tokenImage={token.image}
+                            tokenAmount={token.amount}
+                            fiatValue={token.fiat}
+                            tokenAddress={token.address}
+                        />
+                    </div>
                 ))}
             </div>
         </div>
