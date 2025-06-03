@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { TokenInput } from './TokenInput';
 import { TokenSelectButton } from './TokenSelectButton/TokenSelectButton';
 import { TokenSelectSidebar } from './TokenSelectSidebar/TokenSelectSidebar';
+import { Token } from '@/components/Token/TokenType';
 
 interface TokenSwapAreaProps {
     type: "sell" | "buy";
@@ -17,7 +18,7 @@ interface TokenSwapAreaProps {
     tokenWalletAmount: string;
     fiatValue: string;
     onTokenAmountChange: (value: string) => void;
-    onTokenChange?: (token: { name: string; image: string }) => void;
+    onTokenChange?: (token: Token) => void;
 }
 
 const useStyles = makeStyles({
@@ -85,7 +86,7 @@ export function TokenSwapArea({
     const styles = useStyles();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-    const handleTokenSelect = (token: { name: string; image: string }) => {
+    const handleTokenSelect = (token: Token) => {
         if (onTokenChange) {
             onTokenChange(token);
         }
