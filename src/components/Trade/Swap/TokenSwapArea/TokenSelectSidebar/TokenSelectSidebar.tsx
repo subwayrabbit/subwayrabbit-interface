@@ -82,6 +82,13 @@ const useStyles = makeStyles({
         color: tokens.colorNeutralForeground2,
         ':hover': {
             color: tokens.colorNeutralForeground1,
+            ':active': {
+                color: tokens.colorNeutralForeground1,
+                transform: 'scale(0.98)',
+                '& svg': {
+                    transform: 'scale(0.98)',
+                }
+            }
         },
     },
     tokenList: {
