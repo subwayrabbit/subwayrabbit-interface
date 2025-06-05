@@ -52,6 +52,7 @@ const useStyles = makeStyles({
         pointerEvents: 'auto',
     },
     controlContainer: {
+        height: '114px',
         paddingLeft: '24px',
         paddingRight: '24px',
         display: 'flex',
@@ -98,6 +99,11 @@ const useStyles = makeStyles({
         height: '100%',
         flexDirection: 'column',
         overflowY: 'auto',
+        opacity: 0,
+        transition: 'opacity 0.3s ease-in-out',
+    },
+    tokenListVisible: {
+        opacity: 1,
     },
     tokenItem: {
         display: 'flex',
@@ -144,15 +150,13 @@ export function TokenSelectSidebar({ isOpen, onClose, onSelectToken }: TokenSele
                     <TokenSearch />
                 </div>
 
-                <div className={styles.tokenList}>
+                <div className={`${styles.tokenList} ${isOpen ? styles.tokenListVisible : ''}`}>
                     {tokensList.map((token) => (
-
                         <div className={styles.tokenItem}
                             onClick={() => {
                                 onSelectToken(token);
                                 onClose();
                             }}>
-
                             <TokenListItem
                                 tokenName={token.name}
                                 tokenLabel={token.label}
