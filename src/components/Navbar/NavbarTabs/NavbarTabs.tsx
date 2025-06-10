@@ -11,6 +11,14 @@ const useStyles = makeStyles({
         display: 'flex',
         ...shorthands.gap('40px'),
     },
+    link: {
+        textDecoration: 'none',
+        userSelect: 'none',
+        WebkitUserDrag: 'none',
+        WebkitUserSelect: 'none',
+        MozUserSelect: 'none',
+        msUserSelect: 'none',
+    },
     navButton: {
         display: 'inline-flex', // Makes width content-based
         width: 'auto', // Overrides default width
@@ -76,7 +84,7 @@ export function NavbarTabs() {
 
     return (
         <div className={styles.buttonGroup}>
-            <Link to="/trade" style={{ textDecoration: 'none' }}>
+            <Link to="/trade" className={styles.link} draggable="false">
                 <ToggleButton
                     appearance="transparent"
                     className={styles.navButton}
@@ -86,7 +94,7 @@ export function NavbarTabs() {
                 </ToggleButton>
             </Link>
 
-            <Link to="/earn" style={{ textDecoration: 'none' }}>
+            <Link to="/earn" className={styles.link} draggable="false">
                 <ToggleButton
                     appearance="transparent"
                     className={styles.navButton}
@@ -96,7 +104,7 @@ export function NavbarTabs() {
                 </ToggleButton>
             </Link>
 
-            <Link to="/bridge" style={{ textDecoration: 'none' }}>
+            <Link to="/bridge" className={styles.link} draggable="false">
                 <ToggleButton
                     appearance="transparent"
                     className={styles.navButton}

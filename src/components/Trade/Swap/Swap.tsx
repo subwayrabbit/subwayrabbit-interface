@@ -39,8 +39,8 @@ export function Swap() {
     const styles = useStyles();
     const [sellAmount, setSellAmount] = useState("0.00");
     const [buyAmount, setBuyAmount] = useState("0.00");
-    const [sellToken, setSellToken] = useState("ETH");
-    const [buyToken, setBuyToken] = useState("USDC");
+    const [sellToken, setSellToken] = useState({ label: "ETH", image: ethToken });
+    const [buyToken, setBuyToken] = useState({ label: "USDC", image: usdcToken });
 
     const isSwapActive = (sellAmount !== "" && sellAmount !== "0.00" && sellAmount !== "0") &&
         (buyAmount !== "" && buyAmount !== "0.00" && buyAmount !== "0");
@@ -61,11 +61,12 @@ export function Swap() {
             <TokenSwapArea
                 type="sell"
                 tokenAmount={sellAmount}
-                tokenName="ETH"
-                tokenImage={ethToken}
+                tokenName={sellToken.label}
+                tokenImage={sellToken.image}
                 tokenWalletAmount="0.123"
-                fiatValue={calculateUsdValue(sellAmount, sellToken)}
+                fiatValue={calculateUsdValue(sellAmount, sellToken.label)}
                 onTokenAmountChange={setSellAmount}
+                onTokenChange={setSellToken}
             />
 
             <div className={styles.separator} />
@@ -73,11 +74,12 @@ export function Swap() {
             <TokenSwapArea
                 type="buy"
                 tokenAmount={buyAmount}
-                tokenName="USDC"
-                tokenImage={usdcToken}
+                tokenName={buyToken.label}
+                tokenImage={buyToken.image}
                 tokenWalletAmount="110.000000"
-                fiatValue={calculateUsdValue(buyAmount, buyToken)}
+                fiatValue={calculateUsdValue(buyAmount, buyToken.label)}
                 onTokenAmountChange={setBuyAmount}
+                onTokenChange={setBuyToken}
             />
 
             <div className={styles.swapButtonContainer}>

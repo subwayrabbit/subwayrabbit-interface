@@ -46,9 +46,9 @@ export const darkTheme = {
     colorNeutralBackground2: '#1f1f1f', // app blocks background
 
     colorNeutralForeground1: '#ffffff', // main text
-    colorNeutralForeground2: '#7A7A7A', // gray-300
+    colorNeutralForeground2: '#7A7A7A', // gray-100
     colorNeutralForeground3: '#525252', // gray-200
-    colorNeutralForeground4: "#3D3D3D", // gray-100
+    colorNeutralForeground4: "#3D3D3D", // gray-300
 
     colorNeutralForegroundDisabled: '#555555',
     colorNeutralStroke1: '#333333',
