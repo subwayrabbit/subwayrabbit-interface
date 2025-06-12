@@ -26,9 +26,7 @@ const useStyles = makeStyles({
         paddingRight: '24px',
         paddingLeft: '24px',
 
-        transitionProperty: 'background-color, transform',
-        transitionDuration: '200ms',
-        transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+        transition: 'background-color 0.2s ease',
 
         ':hover': {
             backgroundColor: tokens.colorNeutralForeground4,
